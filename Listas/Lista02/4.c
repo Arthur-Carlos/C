@@ -10,12 +10,12 @@ int main()
     fgets(string, TAM, stdin);
     do
     {
-        if (string[i] == '.')
+        if (string[i] == '.' && string[i+1] == ' ')
         {
             string[i + 1] = '\n'; // estou assumindo que após todo ponto terá um espaço em branco.
         }
         i++;
-    } while (string[i] != '\0');
+    } while (string[i+1] != '\0');
     printf("%s\n", string);
     return 0;
 }
