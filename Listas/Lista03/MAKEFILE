@@ -1,0 +1,26 @@
+# Compilador
+CC = gcc
+
+# Flags de compilação
+CFLAGS = -Wall
+
+# Programas finais
+ALL = prog1 prog2 prog5
+
+all: $(ALL)
+
+# Regras para o programa 1 (1.c sozinho)
+prog1: 1.c
+	$(CC) $(CFLAGS) 1.c -o prog1
+
+# Regras para o programa 2 (2.c + trigo.c + trigo.h)
+prog2: 2.c trigo.c trigo.h
+	$(CC) $(CFLAGS) 2.c trigo.c -o prog2
+
+# Regras para o programa 5 (5.c + turmas.c + alunos.c + turmas.h + alunos.h)
+prog5: 5.c turmas.c alunos.c turmas.h alunos.h
+	$(CC) $(CFLAGS) 5.c turmas.c alunos.c -o prog5
+
+# Limpeza dos executáveis
+clean:
+	rm -f prog1 prog2 prog5
