@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "string.h": "c",
         "math.h": "c",
-        "trigo.h": "c"
+        "trigo.h": "c",
+        "estruturas.h": "c"
     }
 }

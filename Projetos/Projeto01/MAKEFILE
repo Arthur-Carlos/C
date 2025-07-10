@@ -1,0 +1,16 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -g
+
+OBJ = main.o pessoas.o disciplinas.o
+
+all: cadastro
+
+cadastro: $(OBJ)
+	$(CC) $(CFLAGS) -o cadastro $(OBJ)
+
+main.o: main.c pessoas.h disciplinas.h estruturas.h
+pessoas.o: pessoas.c pessoas.h estruturas.h
+disciplinas.o: disciplinas.c disciplinas.h estruturas.h
+
+clean:
+	rm -f *.o cadastro
