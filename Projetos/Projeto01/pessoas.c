@@ -6,7 +6,7 @@
 
 static int contador_matriculas = 0;
 
-int validarCPF(const char *cpf)
+int validadora(const char *cpf)
 {
     if (strlen(cpf) != 11)
         return 0;
@@ -25,18 +25,6 @@ int validarCEP(const char *cep)
     for (int i = 0; i < 8; i++)
     {
         if (!isdigit(cep[i]))
-            return 0;
-    }
-    return 1;
-}
-
-int validarPIS(const char *pis)
-{
-    if (strlen(pis) != 11)
-        return 0;
-    for (int i = 0; i < 11; i++)
-    {
-        if (!isdigit(pis[i]))
             return 0;
     }
     return 1;
@@ -82,7 +70,7 @@ void menuPessoas(Pessoa pessoas[], int *total_alunos, int *total_professores)
 void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores)
 {
     char entrada[300];
-    printf("Digite os dados da pessoa (formato especificado):\n");
+    printf("Digite os dados da pessoa:\n");
     fgets(entrada, sizeof(entrada), stdin);
     entrada[strcspn(entrada, "\n")] = 0;
 
@@ -99,7 +87,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
     if (nova.brasileiro == 0)
     {
         token = strtok(NULL, ";");
-        if (!validarCPF(token))
+        if (!validadora(token))
         {
             printf("\nCPF invalido.\n");
             return;
@@ -166,7 +154,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
     else
     { // Professor
         token = strtok(NULL, ";");
-        if (!validarPIS(token))
+        if (!validadora(token))
         {
             printf("\nPIS invalido.\n");
             return;

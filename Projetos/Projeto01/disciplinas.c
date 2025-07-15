@@ -54,7 +54,7 @@ void cadastrarDisciplina(Disciplina disciplinas[], int *total_disciplinas, Pesso
     Disciplina nova;
     char pis[12];
 
-    printf("Digite os dados (codigo;nome;carga_horaria;PIS): \n");
+    printf("Digite os dados: \n");
     scanf(" %[^;];%[^;];%d;%s", nova.codigo, nova.nome, &nova.carga_horaria, pis);
 
     for (int i = 0; i < *total_disciplinas; i++)
