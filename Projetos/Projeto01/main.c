@@ -12,7 +12,7 @@ int main()
     do
     {
         printf("\n--- MENU PRINCIPAL ---\n");
-        printf("Escolha uma opcao: ");
+        printf("Escolha uma opcao:\n");
         printf("1 - Sistema de Pessoas\n");
         printf("2 - Sistema de Disciplinas\n");
         printf("3 - Sair\n");

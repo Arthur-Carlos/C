@@ -74,7 +74,7 @@ void menuPessoas(Pessoa pessoas[], int *total_alunos, int *total_professores)
         case 5:
             return;
         default:
-            printf("\nOpcao inválida.\n");
+            printf("\nOpcao invalida.\n");
         }
     } while (opcao != 5);
 }
@@ -101,7 +101,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
         token = strtok(NULL, ";");
         if (!validarCPF(token))
         {
-            printf("\nCPF inválido.\n");
+            printf("\nCPF invalido.\n");
             return;
         }
         strcpy(nova.br.cpf, token);
@@ -141,7 +141,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
     token = strtok(NULL, ";");
     if (!validarCEP(token))
     {
-        printf("\nCEP inválido.\n");
+        printf("\nCEP invalido.\n");
         return;
     }
     strcpy(nova.cep, token);
@@ -150,7 +150,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
     nova.tipo = atoi(token);
 
     if (nova.tipo == 0)
-    { // Aluno
+    {
         if (*total_alunos >= MAX_ALUNOS)
         {
             printf("\nLimite de alunos atingido.\n");
@@ -168,7 +168,7 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
         token = strtok(NULL, ";");
         if (!validarPIS(token))
         {
-            printf("\nPIS inválido.\n");
+            printf("\nPIS invalido.\n");
             return;
         }
         strcpy(nova.pis, token);
@@ -187,13 +187,13 @@ void cadastrarPessoa(Pessoa pessoas[], int *total_alunos, int *total_professores
 void exibirPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
 {
     int tipo;
-    printf("A pessoa e: 0 - Aluno, 1 - Professor? ");
+    printf("A pessoa e: 0 - Aluno, 1 - Professor? \n");
     scanf("%d", &tipo);
 
     if (tipo == 0)
     {
         int matricula;
-        printf("Digite a matricula: ");
+        printf("Digite a matricula: \n");
         scanf("%d", &matricula);
         for (int i = 0; i < total_alunos; i++)
         {
@@ -207,7 +207,7 @@ void exibirPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
     else
     {
         char pis[12];
-        printf("Digite o PIS: ");
+        printf("Digite o PIS: \n");
         scanf("%s", pis);
         for (int i = 0; i < total_professores; i++)
         {
@@ -225,14 +225,14 @@ void exibirPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
 void alterarPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
 {
     int tipo;
-    printf("Digite '0' caso seja Aluno ou '1' caso seja Professor: ");
+    printf("A pessoa e: 0 - Aluno, 1 - Professor? \n");
     scanf("%d", &tipo);
 
     Pessoa *p = NULL;
     if (tipo == 0)
     {
         int matricula;
-        printf("Digite a matricula: ");
+        printf("Digite a matricula: \n");
         scanf("%d", &matricula);
         for (int i = 0; i < total_alunos; i++)
         {
@@ -246,7 +246,7 @@ void alterarPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
     else
     {
         char pis[12];
-        printf("Digite o PIS: ");
+        printf("Digite o PIS: \n");
         scanf("%s", pis);
         for (int i = 0; i < total_professores; i++)
         {
@@ -272,20 +272,20 @@ void alterarPessoa(Pessoa pessoas[], int total_alunos, int total_professores)
     switch (opcao)
     {
     case 1:
-        printf("Nova situacao PcD (0 - Nao, 1 - Sim): ");
+        printf("Nova situacao PcD (0 - Nao, 1 - Sim): \n");
         scanf("%d", &p->pcd);
         break;
     case 2:
-        printf("Novo codigo do laudo (ate 10 chars): ");
+        printf("Novo codigo do laudo (ate 10 chars): \n");
         fgets(p->laudo, 11, stdin);
         p->laudo[strcspn(p->laudo, "\n")] = 0;
         break;
     case 3:
-        printf("Novo CEP: ");
+        printf("Novo CEP: \n");
         scanf("%s", p->cep);
         break;
     default:
-        printf("\nOpcao inválida.\n");
+        printf("\nOpcao invalida.\n");
     }
 
     printf("\nDados atualizados.\n");

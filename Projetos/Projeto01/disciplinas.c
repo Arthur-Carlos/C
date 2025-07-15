@@ -14,7 +14,7 @@ void menuDisciplinas(Disciplina disciplinas[], int *total_disciplinas, Pessoa pe
         printf("4 - Remover Aluno de uma Disciplina\n");
         printf("5 - Exibir Dados de uma Disciplina\n");
         printf("6 - Voltar ao menu principal\n");
-        printf("Escolha uma opcao: ");
+        printf("Escolha uma opcao: \n");
         scanf("%d", &opcao);
         getchar();
 
@@ -54,20 +54,18 @@ void cadastrarDisciplina(Disciplina disciplinas[], int *total_disciplinas, Pesso
     Disciplina nova;
     char pis[12];
 
-    printf("Digite os dados (codigo;nome;carga_horaria;PIS): ");
+    printf("Digite os dados (codigo;nome;carga_horaria;PIS): \n");
     scanf(" %[^;];%[^;];%d;%s", nova.codigo, nova.nome, &nova.carga_horaria, pis);
 
-    // Verifica duplicidade de codigo
     for (int i = 0; i < *total_disciplinas; i++)
     {
         if (strcmp(disciplinas[i].codigo, nova.codigo) == 0)
         {
-            printf("\nDisciplina já cadastrada.\n");
+            printf("\nDisciplina ja cadastrada.\n");
             return;
         }
     }
 
-    // Busca professor por PIS
     nova.professor = NULL;
     for (int i = 0; i < total_professores; i++)
     {
@@ -80,7 +78,7 @@ void cadastrarDisciplina(Disciplina disciplinas[], int *total_disciplinas, Pesso
 
     if (!nova.professor)
     {
-        printf("\nProfessor com PIS %s não encontrado.\n", pis);
+        printf("\nProfessor com PIS %s nao encontrado.\n", pis);
         return;
     }
 
@@ -93,7 +91,7 @@ void cadastrarDisciplina(Disciplina disciplinas[], int *total_disciplinas, Pesso
 void alterarProfessorDisciplina(Disciplina disciplinas[], int total_disciplinas, Pessoa pessoas[], int total_professores)
 {
     char codigo[10], pis[12];
-    printf("Digite o codigo da disciplina: ");
+    printf("Digite o codigo da disciplina: \n");
     scanf("%s", codigo);
 
     Disciplina *d = NULL;
@@ -108,11 +106,11 @@ void alterarProfessorDisciplina(Disciplina disciplinas[], int total_disciplinas,
 
     if (!d)
     {
-        printf("\nDisciplina não encontrada.\n");
+        printf("\nDisciplina nao encontrada.\n");
         return;
     }
 
-    printf("Digite o PIS do novo professor: ");
+    printf("Digite o PIS do novo professor: \n");
     scanf("%s", pis);
 
     for (int i = 0; i < total_professores; i++)
@@ -125,7 +123,7 @@ void alterarProfessorDisciplina(Disciplina disciplinas[], int total_disciplinas,
         }
     }
 
-    printf("\nProfessor com PIS %s não encontrado.\n", pis);
+    printf("\nProfessor com PIS %s nao encontrado.\n", pis);
 }
 
 void adicionarAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas, Pessoa pessoas[], int total_alunos)
@@ -133,7 +131,7 @@ void adicionarAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas, P
     char codigo[10];
     int matricula;
 
-    printf("Digite o codigo da disciplina: ");
+    printf("Digite o codigo da disciplina: \n");
     scanf("%s", codigo);
     Disciplina *d = NULL;
 
@@ -148,7 +146,7 @@ void adicionarAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas, P
 
     if (!d)
     {
-        printf("\nDisciplina não encontrada.\n");
+        printf("\nDisciplina nao encontrada.\n");
         return;
     }
 
@@ -158,20 +156,18 @@ void adicionarAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas, P
         return;
     }
 
-    printf("Digite a matricula do aluno: ");
+    printf("Digite a matricula do aluno: \n");
     scanf("%d", &matricula);
 
-    // Verifica se aluno já está na disciplina
     for (int i = 0; i < d->total_alunos; i++)
     {
         if (d->alunos[i]->matricula == matricula)
         {
-            printf("\nAluno já matriculado na disciplina.\n");
+            printf("\nAluno ja matriculado na disciplina.\n");
             return;
         }
     }
 
-    // Busca aluno
     for (int i = 0; i < total_alunos; i++)
     {
         if (pessoas[i].matricula == matricula)
@@ -183,7 +179,7 @@ void adicionarAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas, P
         }
     }
 
-    printf("\nAluno com matricula %d não encontrado.\n", matricula);
+    printf("\nAluno com matricula %d nao encontrado.\n", matricula);
 }
 
 void removerAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas)
@@ -191,7 +187,7 @@ void removerAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas)
     char codigo[10];
     int matricula;
 
-    printf("Digite o codigo da disciplina: ");
+    printf("Digite o codigo da disciplina: \n");
     scanf("%s", codigo);
 
     Disciplina *d = NULL;
@@ -206,11 +202,11 @@ void removerAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas)
 
     if (!d)
     {
-        printf("\nDisciplina não encontrada.\n");
+        printf("\nDisciplina nao encontrada.\n");
         return;
     }
 
-    printf("Digite a matricula do aluno a remover: ");
+    printf("Digite a matricula do aluno a remover: \n");
     scanf("%d", &matricula);
 
     for (int i = 0; i < d->total_alunos; i++)
@@ -227,13 +223,13 @@ void removerAlunoDisciplina(Disciplina disciplinas[], int total_disciplinas)
         }
     }
 
-    printf("Aluno com matricula %d não encontrado na disciplina.\n", matricula);
+    printf("Aluno com matricula %d nao encontrado na disciplina.\n", matricula);
 }
 
 void exibirDisciplina(Disciplina disciplinas[], int total_disciplinas)
 {
     char codigo[10];
-    printf("Digite o codigo da disciplina: ");
+    printf("Digite o codigo da disciplina: \n");
     scanf("%s", codigo);
 
     for (int i = 0; i < total_disciplinas; i++)
@@ -242,7 +238,7 @@ void exibirDisciplina(Disciplina disciplinas[], int total_disciplinas)
         {
             printf("\nCodigo: %s\n", disciplinas[i].codigo);
             printf("Nome: %s\n", disciplinas[i].nome);
-            printf("Carga horária: %d horas\n", disciplinas[i].carga_horaria);
+            printf("Carga horaria: %d horas\n", disciplinas[i].carga_horaria);
             printf("Professor: %s %s\n", disciplinas[i].professor->nome, disciplinas[i].professor->sobrenome);
             printf("Alunos:\n");
             for (int j = 0; j < disciplinas[i].total_alunos; j++)
@@ -253,5 +249,5 @@ void exibirDisciplina(Disciplina disciplinas[], int total_disciplinas)
         }
     }
 
-    printf("\nDisciplina não encontrada.\n");
+    printf("\nDisciplina nao encontrada.\n");
 }
