@@ -1,4 +1,4 @@
-#include "stdio.h"
+#include <stdio.h>
 #include "string.h"
 
 void teste(int r, int g, int b)
@@ -9,7 +9,6 @@ void teste(int r, int g, int b)
 int main(void)
 {
     int i, j, x, y, z;
-    float r, g, b;
 
     FILE *fp = fopen("gnomo.ppm", "rb");
     if (fp == NULL)
