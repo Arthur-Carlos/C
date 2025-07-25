@@ -2,13 +2,43 @@
 #include <stdlib.h>
 #include <string.h>
 
-unsigned char pixel[3];
 char header[3];
 int width, height, maxval;
 
+unsigned char *converter_rotacao(unsigned char *pixel)
+{
+    unsigned char *rotacionada = malloc(3 * width * height);
+    if (!rotacionada)
+    {
+        printf("Erro de memória!\n");
+        exit(1);
+    }
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            int old_index = (y * width + x) * 3;
+            int new_x = height - 1 - y;
+            int new_y = x;
+            int new_index = (new_y * height + new_x) * 3;
+
+            rotacionada[new_index] = pixel[old_index];
+            rotacionada[new_index + 1] = pixel[old_index + 1];
+            rotacionada[new_index + 2] = pixel[old_index + 2];
+        }
+    }
+
+    int temp = width;
+    width = height;
+    height = temp;
+
+    return rotacionada;
+}
+
 void converter_cinza(unsigned char *pixel)
 {
-    unsigned char cinza = (unsigned char)(0.3 * pixel[0] + 0.59 * pixel[1] + 0.11 * pixel[2]);
+    unsigned char cinza = (unsigned char)(0.21 * pixel[0] + 0.71 * pixel[1] + 0.02 * pixel[2]);
     pixel[0] = pixel[1] = pixel[2] = cinza;
 }
 
@@ -42,24 +72,44 @@ int main(void)
     fscanf(fp_in, "%d %d %d", &width, &height, &maxval);
     fgetc(fp_in);
 
-    fprintf(fp_out, "P6\n%d %d\n%d\n", width, height, maxval);
-
     int total_pixels = width * height;
-    for (int i = 0; i < total_pixels; i++)
+    unsigned char *pixel = malloc(3 * total_pixels);
+    if (!pixel)
     {
-        fread(pixel, 1, 3, fp_in);
-
-        // Negativa
-        //converter_negativo(pixel);
-        // Cinza
-        //converter_cinza(pixel);
-        
-        fwrite(pixel, 1, 3, fp_out);
+        printf("Erro no pixel");
+        return 1;
     }
 
+    fread(pixel, 3, total_pixels, fp_in);
+    // leitura
+
+    for (int i = 0; i < total_pixels; i++)
+    {
+        // Cinza
+        // converter_cinza(&pixel[i * 3]);
+
+        // Negativo
+        // converter_negativo(&pixel[i * 3]);
+    }
+    unsigned char *rotacionada = converter_rotacao(pixel);
+    if (!rotacionada)
+    {
+        printf("Erro na rotacionada");
+        return 1;
+    }
+
+    fprintf(fp_out, "P6\n%d %d\n%d\n", width, height, maxval);
+
+    // escrita
+    fwrite(pixel, 3, width * height, fp_out);
+
+    // limpeza de dados
+    free(pixel);
+    free(rotacionada);
     fclose(fp_in);
     fclose(fp_out);
-    printf("Imagem negativa salva como saida.ppm\n");
 
+    // confirmacao
+    printf("pixel salva como saida.ppm\n");
     return 0;
 }
