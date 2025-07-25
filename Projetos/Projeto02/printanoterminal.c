@@ -3,14 +3,14 @@
 
 void teste(int r, int g, int b)
 {
-    printf("\x1b[38;2;%d;%d;%dm█", r, g, b);
+    printf("\x1b[38;2;%d;%d;%dm█", r, g, b);//obs só funfa no linux
 }
 
 int main(void)
 {
     int i, j, x, y, z;
 
-    FILE *fp = fopen("gnomo.ppm", "rb");
+    FILE *fp = fopen("entrada.ppm", "rb");
     if (fp == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
@@ -36,7 +36,7 @@ int main(void)
         for (j = 0; j < width; j++)
         {
             fread(pixel, 1, 3, fp);
-            /*            
+            /*
             x = 255-pixel[0]; negativa
             y = 255-pixel[1];
             z = 255-pixel[2];
@@ -44,7 +44,8 @@ int main(void)
             x = pixel[0];
             y = pixel[1];
             z = pixel[2];
-            teste(x,y,z);
+            teste(x, y, z);
+            teste(x, y, z);
         }
         printf("\n");
     }
