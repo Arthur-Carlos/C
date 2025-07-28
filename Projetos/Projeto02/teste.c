@@ -89,7 +89,8 @@ int main(void)
         // converter_cinza(&pixel[i * 3]);
 
         // Negativo
-        // converter_negativo(&pixel[i * 3]);
+        //converter_negativo(&pixel[i * 3]);
+
     }
     unsigned char *rotacionada = converter_rotacao(pixel);
     if (!rotacionada)
@@ -97,11 +98,11 @@ int main(void)
         printf("Erro na rotacionada");
         return 1;
     }
-
+    //titulo
     fprintf(fp_out, "P6\n%d %d\n%d\n", width, height, maxval);
 
     // escrita
-    fwrite(pixel, 3, width * height, fp_out);
+    fwrite(rotacionada, 3, width * height, fp_out);
 
     // limpeza de dados
     free(pixel);

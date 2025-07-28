@@ -1,69 +1,56 @@
 #include <stdio.h>
-#include "imagem_ppm.h"
+#include <string.h>
+#include <stdlib.h>
+#include "imagens_ppm.h"
 
-
-int main(void)
+int main(int argc, char *argv[])
 {
-    FILE *fp_in = fopen("entrada.ppm", "rb");
-    FILE *fp_out = fopen("saida.ppm", "wb");
-
-    if (fp_in == NULL || fp_out == NULL)
+    if (argc < 4)
     {
-        printf("Erro ao abrir os arquivos.\n");
+        fprintf(stderr, "Uso: %s <entrada.ppm> <comando> [param] <saida.ppm>\n", argv[0]);
         return 1;
     }
 
-    fscanf(fp_in, "%2s", header);
-    if (strcmp(header, "P6") != 0)
+    ImagemPPM *fp_in = carregarImagem(argv[1]);
+    if (!fp_in)
     {
-        printf("Formato PPM não suportado.\n");
-        fclose(fp_in);
-        fclose(fp_out);
+        fprintf(stderr, "Erro ao abrir os aquivos.\n");
         return 1;
     }
 
-    fscanf(fp_in, "%d %d %d", &width, &height, &maxval);
-    fgetc(fp_in);
+    ImagemPPM *entrada = NULL;
 
-    int total_pixels = width * height;
-    unsigned char *pixel = malloc(3 * total_pixels);
-    if (!pixel)
+    if (strcmp(argv[2], "rot") == 0 && argc == 5)
     {
-        printf("Erro no pixel");
-        return 1;
+        int angulo = atoi(argv[3]);
+        entrada = converter_rotacao(fp_in, angulo);
     }
-
-    fread(pixel, 3, total_pixels, fp_in);
-    
-    // leitura
-
-    for (int i = 0; i < total_pixels; i++)
-    {   
-        //Cinza
-        //converter_cinza(&pixel[i * 3]);
-
-        //Negativo
-        //converter_negativo(&pixel[i * 3]);
-    }
-    unsigned char *rotacionada = converter_rotacao(pixel);
-    if (!rotacionada)
+    else if ((strcmp(argv[2], "amp") == 0 || strcmp(argv[2], "red") == 0) && argc == 5)
     {
-        printf("Erro na rotacionada");
+        int fator = atoi(argv[3]);
+        entrada = converter_dimensao(fp_in, argv[2], fator);
+    }
+    else if (strcmp(argv[2], "cinza") == 0 && argc == 4)
+    {
+        entrada = converter_cinza(fp_in);
+    }
+    else if (strcmp(argv[2], "inverte") == 0 && argc == 4)
+    {
+        entrada = converter_negativo(fp_in);
+    }
+    else
+    {
+        fprintf(stderr, "Entrada errada.\n");
+        liberarImagem(fp_in);
         return 1;
+    } 
+
+    if (entrada)
+    {
+        salvarImagem(argv[argc - 1], entrada);
+        liberarImagem(entrada);
     }
 
-    fprintf(fp_out, "P6\n%d %d\n%d\n", width, height, maxval);
-
-    // escrita
-    fwrite(pixel, 3, width * height, fp_out);
-
-    // limpeza de dados
-    free(pixel);
-    free(rotacionada);
-    fclose(fp_in);
-    fclose(fp_out);
-
-    // confirmacao
-    printf("pixel salva como saida.ppm\n");
+    liberarImagem(fp_in);
     return 0;
 }
