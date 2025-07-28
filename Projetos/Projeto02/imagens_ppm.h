@@ -14,7 +14,7 @@ typedef struct
     Pixel **dados;
 } ImagemPPM;
 
-ImagemPPM *carregarImagem(const char *caminho);
+ImagemPPM *verificaImagem(const char *caminho);
 void liberarImagem(ImagemPPM *img);
 void salvarImagem(const char *caminho, ImagemPPM *img);
 

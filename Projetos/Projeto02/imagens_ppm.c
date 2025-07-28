@@ -3,7 +3,7 @@
 #include <string.h>
 #include "imagens_ppm.h"
 
-ImagemPPM *carregarImagem(const char *caminho)
+ImagemPPM *verificaImagem(const char *caminho)
 {
     FILE *arquivo = fopen(caminho, "rb");
     if (!arquivo)
@@ -229,8 +229,8 @@ ImagemPPM *converter_cinza(ImagemPPM *img)
         for (int j = 0; j < img->largura; j++)
         {
             Pixel p = img->dados[i][j];
-            int media = (p.r * 0.21 + p.g * 0.71 + p.b * 0.02);
-            Pixel cinza = {media, media, media};
+            int aux = (p.r * 0.21 + p.g * 0.71 + p.b * 0.02);
+            Pixel cinza = {aux, aux, aux};
             nova->dados[i][j] = cinza;
         }
     }
@@ -256,11 +256,11 @@ ImagemPPM *converter_negativo(ImagemPPM *img)
         for (int j = 0; j < img->largura; j++)
         {
             Pixel p = img->dados[i][j];
-            Pixel invertido;
-            invertido.r = 255 - p.r;
-            invertido.g = 255 - p.g;
-            invertido.b = 255 - p.b;
-            nova->dados[i][j] = invertido;
+            Pixel aux;
+            aux.r = 255 - p.r;
+            aux.g = 255 - p.g;
+            aux.b = 255 - p.b;
+            nova->dados[i][j] = aux;
         }
     }
 
