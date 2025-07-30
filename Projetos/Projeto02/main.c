@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    ImagemPPM *fp_in = carregarImagem(argv[1]);
+    ImagemPPM *fp_in = verificaImagem(argv[1]);
     if (!fp_in)
     {
         fprintf(stderr, "Erro ao abrir os aquivos.\n");
