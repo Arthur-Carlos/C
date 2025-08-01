@@ -30,8 +30,7 @@ ImagemPPM *verificaImagem(const char *caminho)
 
     while ((c = fgetc(arquivo)) == '#')
     {
-        while ((c = fgetc(arquivo)) != '\n')
-            ;
+        while ((c = fgetc(arquivo)) != '\n');
     }
     ungetc(c, arquivo);
 
@@ -120,7 +119,7 @@ ImagemPPM *converter_dimensao(ImagemPPM *img, const char *tipo, int fator)
     }
     else
     {
-        fprintf(stderr, "Erro.\n");
+        fprintf(stderr, "Entrada diferente de amp ou red.\n");
         return NULL;
     }
 

@@ -10,6 +10,15 @@ Bem vindo a biblioteca imagens_ppm, nela você pode:
         make
     então:
         ./main entrada.ppm cinza saida.ppm
+        ./main entrada.ppm inverte saida.ppm
+        ./main entrada.ppm rot 90 saida.ppm  //aqui pode ser qualquer valor entre 90/180/270
+        ./main entrada.ppm red 1 saida.ppm   //aqui pode ser qualquer valor entre 1 e 4
+        ./main entrada.ppm amp 1 saida.ppm   //aqui pode ser qualquer valor entre 1 e 4
+
+    para limpar:
+        make clean
+        ou:
+        make clean-all
 
 Módulos:
     Main:
