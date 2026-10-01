@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+//Aluno: Arthur Carlos Neuhauss
+
+//Teste executado(o mesmo do livro): 8000 RAM incial, 2000 memSO, 2000 memProcess, 0.8 prob, 5 cenario, 8000 incremento
+// Resultado Obtido:
+/*
+    RAM(mb)         Grau de Multiprogramacao  Utilizacao da CPU em %
+    8000.00         3                         0.49%
+    16000.00        7                         0.79%
+    24000.00        11                        0.91%
+    32000.00        15                        0.96%
+    40000.00        19                        0.99%
+*/
+
+/*
+    Como podemos perceber no primeiro cenario, temos uma utilizacao de 0.49% e o grau para 3, porem ao dobrar (adcionar 8000 mb) a RAM, 
+    a utilizacao sobe para 0.79% e o grau para 7. Porem ao aumentar em 8000 (mb) novamente, a utilizacao sobe para 0.91% e o grau para 11,
+    uma leve reducao no crescimento da utilizacao. Ao aumentar em mais 8000 (32000 mb no total), o crescimento da utilizacao cai ainda mais
+    e o grau sobe adequadamente. Como podemos perceber, mesmo que dobrassemos a memoria, nao teriamos proporcionalmente o dobro de desempenho 
+    nem de velocidade.
+*/
+
+int main()
+{
+    double ramInicial, memSO, memProcess, prob;
+    double incremento;
+    int cenario;
+    do
+    {
+        printf("Digite a quantidade de memoria RAM do pc:\n");
+        scanf("%lf", &ramInicial);
+        if (ramInicial <= 0)
+        {
+            printf("ERRO! Digite um valor maior que 0 de RAM inical\n");
+        }
+
+    } while (ramInicial <= 0);
+    do
+    {
+        printf("Digite a quantidade de memoria ocupada pelo Sistema Operacional:\n");
+        scanf("%lf", &memSO);
+        if (memSO <= 0)
+        {
+            printf("ERRO! Digite um valor maior que 0 de memoria ocupada pelo Sitema Operacional.\n");
+        }
+        if(memSO >= ramInicial){
+            printf("ERRO! Digite um valor menor que a RAM incial. Valor atual da RAM inicial:%lf \n", ramInicial);
+        }
+    } while (memSO <= 0 || memSO >=ramInicial);
+
+    do
+    {
+        printf("Digite a quantidade de memoria usada por Processo:\n");
+        scanf("%lf", &memProcess);
+        if (memProcess <= 0)
+        {
+            printf("ERRO! Digite um valor maior que 0 de memoria usada por Processo.\n");
+        }
+
+    } while (memProcess <= 0);
+
+    do
+    {
+        printf("Digite a probabilidade de um processo estar esperando E/S entre 0 e 1: \n");
+        scanf("%lf", &prob);
+        if (prob < 0.0 || prob > 1.0)
+        {
+            printf("Valor de probabilidade invalido, digite um valor entre 0 e 1. Ex.: 0.35 (35%%)\n");
+        }
+    } while (prob < 0.0 || prob > 1.0);
+
+    do
+    {
+        printf("Digite a quantidade de cenarios:\n");
+        scanf("%d", &cenario);
+        if (cenario < 5)
+        {
+            printf("Numero de cenarios invalido!(minimo 5)\n");
+        }
+
+    } while (cenario < 5);
+
+    printf("Digite o incremento de memoria entre os cenarios:\n");
+    scanf("%lf", &incremento);
+    printf("%-15s %-25s %s\n", "RAM(mb)", "Grau de Multiprogramacao", "Utilizacao da CPU em %");
+    for (int i = 0; i < cenario; i++)
+    {
+        double ramAtual = ramInicial + (i * incremento);
+        double memDisp = ramAtual - memSO;
+        int n = (int)floor(memDisp / memProcess);
+        double util = 0.0;
+        if (n > 0)
+        {
+            util = 1.0 - pow(prob, n);
+        }
+        printf("%-15.2f %-25d %.2f%%\n", ramAtual, n, util);
+    }
+    return 0;
+}
