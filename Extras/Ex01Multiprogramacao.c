@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//Aluno: Arthur Carlos Neuhauss
 
 //Teste executado(o mesmo do livro): 8000 RAM incial, 2000 memSO, 2000 memProcess, 0.8 prob, 5 cenario, 8000 incremento
 // Resultado Obtido:
